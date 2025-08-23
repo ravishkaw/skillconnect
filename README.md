@@ -48,7 +48,7 @@ skillconnect/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/skillconnect.git
+git clone https://github.com/ravishkaw/skillconnect.git
 cd skillconnect
 ```
 
