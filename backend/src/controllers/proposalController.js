@@ -1,4 +1,5 @@
 const Proposal = require("../models/proposalModel");
+const Job = require("../models/jobModel");
 const { createProject } = require("../controllers/projectController");
 
 // client only
@@ -25,12 +26,11 @@ const createProposal = async (req, res) => {
         .json({ message: "Clients cannot create proposals" });
     }
     const { jobId } = req.params;
-    const { freelancerId, proposalText, estimatedCost, deliveryTime } =
-      req.body;
+    const { proposalText, estimatedCost, deliveryTime } = req.body;
 
     const savedProposal = await Proposal.create({
       jobId,
-      freelancerId,
+      freelancerId: req.user.id,
       proposalText,
       estimatedCost,
       deliveryTime,
@@ -54,20 +54,28 @@ const updateProposalStatus = async (req, res) => {
       proposalId,
       { status: req.body.status },
       { new: true, runValidators: true }
-    );
+    ).populate("jobId");
+
     if (!proposal) {
       return res.status(404).json({ message: "Proposal not found" });
     }
-    res.status(200).json(proposal);
 
     // create a project if proposal accepted
     if (req.body.status === "accepted") {
+      // Update job status to in_progress
+      await Job.findByIdAndUpdate(proposal.jobId._id, {
+        status: "in_progress",
+      });
+
+      // Create project
       await createProject({
-        jobId: proposal.jobId,
+        jobId: proposal.jobId._id,
         freelancerId: proposal.freelancerId,
-        clientId: proposal.clientId,
+        clientId: proposal.jobId.clientId,
       });
     }
+
+    res.status(200).json(proposal);
   } catch (error) {
     res.status(500).json({ message: "Error updating proposal status" });
   }

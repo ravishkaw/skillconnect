@@ -9,6 +9,7 @@ const protect = require("./middleware/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const proposalRoutes = require("./routes/proposalRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 
 app.use(express.json());

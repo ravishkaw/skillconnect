@@ -3,11 +3,20 @@ const Project = require("../models/projectModel");
 const getProjectForUser = async (req, res) => {
   try {
     const { id, role } = req.user;
+    let projects;
+
     if (role === "client") {
-      const projects = await Project.find({ clientId: id });
-      return res.status(200).json(projects);
+      projects = await Project.find({ clientId: id })
+        .populate("jobId", "title description budget deadline")
+        .populate("freelancerId", "name email")
+        .populate("clientId", "name email");
+    } else {
+      projects = await Project.find({ freelancerId: id })
+        .populate("jobId", "title description budget deadline")
+        .populate("freelancerId", "name email")
+        .populate("clientId", "name email");
     }
-    const projects = await Project.find({ freelancerId: id });
+
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({ message: "Error fetching projects" });
@@ -22,9 +31,11 @@ const createProject = async ({ jobId, freelancerId, clientId }) => {
       freelancerId,
       clientId,
     });
-    res.status(201).json(newProject);
+    console.log("Project created:", newProject);
+    return newProject;
   } catch (error) {
-    res.status(500).json({ message: "Error creating project" });
+    console.error("Error creating project:", error);
+    throw error;
   }
 };
 

@@ -8,7 +8,7 @@ const {
   updatePaymentStatusToPaid,
 } = require("../controllers/projectController");
 
-router.get("/user", getProjectForUser);
+router.get("/", getProjectForUser);
 router.post("/", createProject);
 router.put("/:id/status", updateProjectStatusToCompleted);
 router.put("/:id/payment", updatePaymentStatusToPaid);

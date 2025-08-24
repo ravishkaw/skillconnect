@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { updateProposalStatus } = require("../controllers/proposalController");
 
-router.put("/:id", updateProposalStatus);
+router.put("/:proposalId", updateProposalStatus);
 
 module.exports = router;
