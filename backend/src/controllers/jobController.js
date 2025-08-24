@@ -32,10 +32,20 @@ const postJob = async (req, res) => {
     if (req.user.role === "freelancer") {
       return res.status(403).json({ message: "Access denied" });
     }
-    const newJob = new Job(req.body);
+    const { title, description, budget, deadline, requiredSkills } = req.body;
+    const newJob = new Job({
+      title,
+      description,
+      budget,
+      deadline,
+      requiredSkills,
+      clientId: req.user.id,
+    });
     const savedJob = await Job.create(newJob);
     res.status(201).json(savedJob);
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: "Error creating job" });
   }
 };
