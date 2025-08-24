@@ -9,19 +9,20 @@ const protect = require("./middleware/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const projectRoutes = require("./routes/projectRoutes");
 
 app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  console.log(req);
-  res.send("Hello World");
+  res.send("<h1>Hello World! Welcome to the skillconnect API</h1>");
 });
 
 app.use("/api/", authRoutes);
 app.use("/api/users", protect, userRoutes);
 app.use("/api/jobs", protect, jobRoutes);
 app.use("/api/proposals", protect, proposalRoutes);
+app.use("/api/projects", protect, projectRoutes);
 
 const startServer = async () => {
   try {
