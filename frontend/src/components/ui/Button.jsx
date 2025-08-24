@@ -15,7 +15,7 @@ const Button = ({
     primary:
       "bg-indigo-600 hover:bg-indigo-700 text-white focus:ring-indigo-500",
     secondary:
-      "bg-gray-200 hover:bg-gray-300 text-gray-900 focus:ring-gray-500",
+      "bg-white hover:bg-indigo-300 text-indigo-900 focus:ring-gray-500",
     outline:
       "border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 focus:ring-indigo-500",
     danger: "bg-red-600 hover:bg-red-700 text-white focus:ring-red-500",

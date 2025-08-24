@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600">
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 h-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
@@ -64,19 +64,12 @@ const Home = () => {
             {!isAuthenticated ? (
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/register">
-                  <Button
-                    size="lg"
-                    className="bg-white text-indigo-600 hover:bg-gray-100"
-                  >
+                  <Button size="lg" variant="secondary">
                     Get Started
                   </Button>
                 </Link>
                 <Link to="/jobs">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-indigo-600"
-                  >
+                  <Button size="lg" variant="secondary">
                     Browse Jobs
                   </Button>
                 </Link>
@@ -84,10 +77,7 @@ const Home = () => {
             ) : (
               <div className="flex justify-center">
                 <Link to="/jobs">
-                  <Button
-                    size="lg"
-                    className="bg-white text-indigo-600 hover:bg-gray-100 flex items-center space-x-2"
-                  >
+                  <Button size="lg" variant="secondary">
                     <span>Browse Jobs</span>
                     <ArrowRight size={20} />
                   </Button>

@@ -49,7 +49,7 @@ const Projects = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("en-LK", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -58,7 +58,7 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
         </div>
@@ -67,7 +67,7 @@ const Projects = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
           {user?.role === "client" ? "My Projects" : "Active Projects"}

@@ -54,11 +54,6 @@ const JobDetail = () => {
     resolver: yupResolver(proposalSchema),
   });
 
-  useEffect(() => {
-    // Job and proposals are fetched automatically by the hooks
-    // No additional fetching needed here
-  }, [id, user]);
-
   const submitProposal = async (data) => {
     setSubmittingProposal(true);
     try {
@@ -77,7 +72,7 @@ const JobDetail = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("en-LK", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -112,7 +107,7 @@ const JobDetail = () => {
 
   if (jobLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
         </div>
@@ -122,7 +117,7 @@ const JobDetail = () => {
 
   if (!job) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="text-center py-12">
           <h3 className="text-lg font-medium text-gray-900">Job not found</h3>
           <p className="mt-1 text-sm text-gray-500">
@@ -141,7 +136,7 @@ const JobDetail = () => {
     user?.role === "freelancer" && job.status === "open" && !isJobOwner;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Back Button */}
       <div className="mb-6">
         <Button
