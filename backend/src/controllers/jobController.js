@@ -1,7 +1,24 @@
 const Job = require("../models/jobModel");
+const User = require("../models/userModel");
 
 const getAllJobs = async (req, res) => {
   try {
+    const { id, role } = req.user;
+    const user = await User.findById(id);
+
+    if (role === "client") {
+      const jobs = await Job.find({ clientId: id });
+      return res.status(200).json(jobs);
+    }
+
+    if (role === "freelancer" && user.skills && user.skills.length > 0) {
+      const jobs = await Job.find({
+        requiredSkills: { $in: user.skills },
+        status: "open",
+      });
+      return res.status(200).json(jobs);
+    }
+
     const jobs = await Job.find();
     res.status(200).json(jobs);
   } catch (error) {
@@ -57,7 +74,7 @@ const deleteJob = async (req, res) => {
   try {
     if (req.user.role === "freelancer") {
       return res.status(403).json({ message: "Access denied" });
-    } 
+    }
     const job = await Job.findByIdAndDelete(req.params.id);
     if (!job) {
       return res.status(404).json({ message: "Job not found" });
