@@ -1,4 +1,5 @@
 const Proposal = require("../models/proposalModel");
+const { createProject } = require("../controllers/projectController");
 
 // client only
 const getProposals = async (req, res) => {
@@ -58,6 +59,15 @@ const updateProposalStatus = async (req, res) => {
       return res.status(404).json({ message: "Proposal not found" });
     }
     res.status(200).json(proposal);
+
+    // create a project if proposal accepted
+    if (req.body.status === "accepted") {
+      await createProject({
+        jobId: proposal.jobId,
+        freelancerId: proposal.freelancerId,
+        clientId: proposal.clientId,
+      });
+    }
   } catch (error) {
     res.status(500).json({ message: "Error updating proposal status" });
   }

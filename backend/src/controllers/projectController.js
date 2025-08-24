@@ -14,9 +14,9 @@ const getProjectForUser = async (req, res) => {
   }
 };
 
-const createProject = async (req, res) => {
+// automatically create when proposal accepted
+const createProject = async ({ jobId, freelancerId, clientId }) => {
   try {
-    const { jobId, freelancerId, clientId } = req.body;
     const newProject = await Project.create({
       jobId,
       freelancerId,
