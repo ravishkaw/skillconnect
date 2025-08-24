@@ -8,6 +8,7 @@ const protect = require("./middleware/authMiddleware");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const jobRoutes = require("./routes/jobRoutes");
 
 app.use(express.json());
 app.use(cors());
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/", authRoutes);
 app.use("/api/users", protect, userRoutes);
+app.use("/api/jobs", protect, jobRoutes);
+app.use("/api/proposals", protect, proposalRoutes);
 
 const startServer = async () => {
   try {
